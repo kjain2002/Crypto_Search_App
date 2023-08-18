@@ -41,10 +41,10 @@ import time
 
 warnings.filterwarnings(action="ignore", message="unclosed", category=ResourceWarning)
     
-# os.environ['OPENAI_API_KEY'] = "..."
-llm = OpenAI(temperature=0)
-os.environ["SERPER_API_KEY"] = "d4247b1d0eadad3649101d95e6185c569b02bf19"
-openai.api_key = "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"
+
+os.environ['OPENAI_API_KEY'] = "..."
+os.environ["SERPER_API_KEY"] = "..."
+openai.api_key = os.environ['OPENAI_API_KEY']
 
 search = GoogleSerperAPIWrapper()
 cg = CoinGeckoAPI()
