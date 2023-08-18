@@ -1,0 +1,124 @@
+name,description
+Get CURRENT PRICE of a coin given name and currency.,"Put in call in this format [cg.get_price(coin_name_not_symbol, currency), original query, None]
+                         
+                         Sample user input -> ""What is the price of Ethereum in usd?""
+                         Sample Action input -> [cg.get_price('ethereum', 'usd'), 'What is the price of Ethereum in usd?', None]
+
+                         Sample user input -> ""What is the price of Ethereum and Dogecoin in usd?""
+                         Sample Action input -> [cg.get_price(['ethereum', 'dogecoin'], 'usd'), 'What is the price of Ethereum and Dogecoin in usd?', None]
+
+                         Sample user input -> ""What is the price of Ethereum and Dogecoin in Chinese and United States currency?""
+                         Sample Action input -> [cg.get_price(['ethereum', 'dogecoin'], ['usd', 'cny']), 'What is the price of Ethereum and Dogecoin in Chinese and United States currency?', None]
+
+                         if information derived from observation = None or 0.0. Say ""Data is not available in CoinGecko"""
+Get TOKEN PRICE given token name and platform.,"Put in call in this format [cg.get_token_price(id, contract_address, currency), original query, None]
+                     Sample user input -> ""What is the price of the ADA token on Cardano in USD?""
+                     Find contract address of respective token name on respective platform using Google Search
+                     Sample Action input -> [cg.get_token_price('cardano', '0x3ee2200efb3400fabb9aacf31297cbdd1d435d47', 'usd'), 'What is the price of the ADA token on Cardano in USD?', None]
+                     
+                     Sample user input -> ""What is the price of DAI token on Ethereum blockchain platform in Europe?""
+                     Find contract address of respective token name on respective platform using Google Search
+                     Sample Action input -> [cg.get_token_price('ethereum', '0x6B175474E89094C44Da98b954EedeAC495271d0F', 'eur'), 'What is the price of DAI token on Ethereum blockchain platform in Europe?', None]
+                     
+                     Sample user input -> ""What is the price of the token with this corresponding address: 0x6B175474E89094C44Da98b954EedeAC495271d0F on Ethereum blockchain in chinese currency?""
+                     Sample Action input -> [cg.get_token_price('ethereum', '0x6B175474E89094C44Da98b954EedeAC495271d0F', 'cny'), 'What is the price of the token with this corresponding address: 0x6B175474E89094C44Da98b954EedeAC495271d0F on Ethereum blockchain in chinese currency?', None]
+                     
+                     Sample user input -> ""What is the price of the DAI, Tether, and Binance Coin on Ethereum blockchain in USD, CNY, and Eur currencies?""
+                     Find respective contract addresses of respective token names on respective platform using Google Search 
+                     Sample Action input -> [cg.get_token_price('ethereum', ['0x6B175474E89094C44Da98b954EedeAC495271d0F','0xdac17f958d2ee523a2206206994597c13d831ec7','0xB8c77482e45F1F44dE1745F52C74426C631bDD52'] , ['usd', 'cny', 'eur']), 'What is the price of the DAI, Tether, and Binance Coin on Ethereum blockchain in USD, CNY, and Eur currencies?', None]
+                     
+                     if information derived from observation = None or 0.0. Say ""Data is not available in CoinGecko"""
+Get HISTORICAL DATA about coin on SPECIFIC DATES.,"Put in call in this format: [cg.get_coin_history_by_id(coin_name, ""dd-mm-yyyy""), original query, 3]
+                         Sample user input -> ""What was the price of Ethereum on April 4th 2023?""
+                         Sample Action input -> [cg.get_coin_history_by_id('ethereum', '05-04-2023'), ""What was the price of Ethereum on April 4th 2023?"", 3]
+                         Sample user input -> ""Get Dogecoin symbol yesterday""
+                         Sample Action input -> [cg.get_coin_history_by_id('dogecoin', (dt.datetime.today() - timedelta(days=1)).strftime('%d-%m-%Y')), 'Get Dogecoin symbol yesterday', 3] 
+                         Sample user input -> ""Summarize market data about Ethereum 3 days ago in usd""
+                         Sample Action input -> [cg.get_coin_history_by_id('ethereum', (dt.datetime.today() - timedelta(days=3)).strftime('%d-%m-%Y'))['market_data], 'Summarize market data about Ethereum have 3 days ago in usd', 3]
+                         if information derived from observation = None or 0.0. Say ""Data is not available in CoinGecko"""
+"Get market cap, volume, market cap rank and other market related data given SPECIFIC COIN NAMES and a currency.","Put in call in this format [cg.get_coins_markets(vs_currency = currencies, ids = coin_names), original_query, None]
+                         Sample user input -> ""Get Ethereum market data""
+                         Sample Action input -> [cg.get_coins_markets(vs_currency = 'usd', ids = 'ethereum'), 'Get Ethereum market data', None]
+                         Sample user input -> ""Get Ethereum market data in usd""
+                         Sample Action input -> [cg.get_coins_markets(vs_currency = 'usd', ids = 'ethereum'), 'Get Ethereum market data in usd', None]
+                         Sample user input -> ""Dogecoin and Ethereum market data in chinese currency""
+                         Sample Action input -> [cg.get_coins_markets(vs_currency = 'cny', ids = ['dogecoin', 'ethereum']), 'Dogecoin and Ethereum market data in chinese currency', 5] 
+                         if information derived from observation = None or 0.0. Say ""Data is not available in CoinGecko"""
+"Get market cap, volume and other market related data given SPECIFIC COIN RANKS and a currency.","Put in this call format : [get_market_data_by_rank(currency_name, [...list_of_ranks...]), original query, 5]
+                        Sample user input -> ""List coins of top 5 market cap ranks""
+                        Sample Action input-> [get_market_data_by_rank('usd', [1, 2, 3, 4, 5]), 'List coins of top 5 market cap ranks', 5]
+                         
+                        Sample user input -> ""List coins of top 5 market cap ranks in usd""
+                        Sample Action input-> [get_market_data_by_rank('usd', [1, 2, 3, 4, 5]), 'List coins of top 5 market cap ranks in usd', 5]  
+                        
+                        Sample user input -> ""List names and summarize market data in chinese currency of crypto coins with market_cap ranks 1, 5, and 10""
+                        Sample Action input-> [get_market_data_by_rank('cny', [1, 5, 10]), 'List names and summarize market data in chinese currency of crypto coins with market_cap ranks 1, 5, and 10', 5]
+                        
+                        if information derived from observation = None or 0.0. Say ""Data is not available in CoinGecko"""
+Get contract addresses given platform and token.,Find contract address that corresponds to a blockchain network and a token
+"Get all supported coins ids, names and symbols.","Put in call in this format: [get_coins_list(label, starts_with), original query, None]
+                      Sample user input -> ""List all supported coins starting with b""
+                      Sample action input -> [get_coins_list(label = 'name', starts_with = 'b'), 'List all supported coins starting with b', None]
+
+                      Sample user input -> ""List all supported coin symbols starting with b""
+                      Sample action input -> [get_coins_list(label = 'symbol', starts_with = 'b'), 'List all supported coin symbols starting with b', None]
+
+                      Sample user input -> ""Is ethereum a supported coin name?""
+                      Sample action input -> [get_coins_list(label = 'name', starts_with = 'ethereum'), 'Is ethereum a supported coin name?', None]
+
+                      Sample user input -> ""Is zoc a supported coin symbol?""
+                      Sample action input -> [get_coins_list(label = 'symbol', starts_with = 'zoc'), 'Is zoc a supported coin symbol?', None]
+                      
+                      if information derived from observation = None or 0.0. Say ""Data is not available in CoinGecko"""
+Get any CURRENT DATA about a coin. Make sure to use this before trying any of the vector search tools,"Put in call in this format [cg.get_coin_by_id(coin_name), original_query, 3]
+        Sample user input -> ""Get developer data about bitcoin""
+        Sample action input -> [[cg.get_coin_by_id('bitcoin'), 'Get developer data about bitcoin', 3]]"
+"Get market data for PAST X NUMBER OF DAYS given coin name, currency, days, and interval.","Put in call in this format [cg.get_coin_market_chart_by_id(coin_name, currency, days, interval), original_query, None] 
+                          
+                          Sample user input -> ""Get Bitcoin market data for the past 2 days""
+                          Sample action input -> [cg.get_coin_market_chart_by_id('bitcoin', 'usd', 2, interval = 'daily'), 'Get Bitcoin market data for the past 2 days', None]
+                          
+                          Sample user input -> ""Get Ethereum market data for the past 3 days in chinese currency""
+                          Sample Action input -> [cg.get_coin_market_chart_by_id('ethereum', 'cny', 3, interval = 'daily'), original_query, None]"
+Get list of asset platforms and their chain identifiers. You can pass in optional filter: 'nft'.,"Pass in call in one of these formats:
+                            1) [top_dics(cg.get_asset_platforms(), 'name', original query, 10), original query, None]
+                            2) [top_dics(cg.get_asset_platforms(), 'chain_identifier', original query, 10), original query, None]
+                            3) [cg.get_asset_platforms(filter = 'nft'), original query, None]
+                         
+                         Sample user input -> ""What is the chain identifier for the binance chain?""
+                         Sample Action input -> [top_dics(cg.get_asset_platforms(), 'name', 'What is the chain identifier for the binance chain?', 10), 'What is the chain identifier for the binance chain?', None]
+                          
+                         Sample user input -> ""What is the name of the platform with chain identifier 50?""
+                         Sample Action input -> [top_dics(cg.get_asset_platforms(), 'chain_identifier', 'What is the name of the platform with chain identifier 50?', 10), 'What is the name of the platform with chain identifier 50?', None]
+                         
+                         Sample user input -> ""Which asset platforms support nfts?""
+                         Sample Action input -> [cg.get_asset_platforms(filter = 'nft'), 'Which asset platforms support nfts?', None]"
+Get coin category(s).,"Pass in call in this exact format: [top_dics(cg.get_coins_categories_list(), 'name', original query, 10), original query, None]
+                         
+                         Sample user input -> ""Which crypto categories pertain to tech?""
+                         Sample Action input -> [top_dics(cg.get_coins_categories_list(), 'name', 'Which crypto categories pertain to tech?', 10), 'Which crypto categories pertain to tech?', None]
+
+                         Sample user input -> ""Coin categories related to ethereum""
+                         Sample Action input -> [top_dics(cg.get_coins_categories(), 'name', 'Coin categories related to ethereum', 10), 'Coin categories related to ethereum', None]"
+Get market data about SPECIFIC COIN CATEGORIES.,"Pass in call in one of these EXACT formats: 
+                            1) [cg.get_coins_categories()[:15], originial query, 2]
+                            2) [cg.get_coins_categories(order = 'market_cap_asc')[:15], original query, 2]
+                            3) [cg.get_coins_categories(order = 'market_cap_change_24h_desc')[:15], original query, 2]
+                            4) [cg.get_coins_categories(order = 'market_cap_change_24h_asc')[:15], original query, 2]
+                         Sample user input -> ""List coin categories of top 10 market caps?""
+                         Sample Action input -> [cg.get_coins_categories()[:15], 'List coin categories of top 10 market caps?', 2]
+                        
+                         Sample user input -> ""List coin categories with 10 lowest market caps?""
+                         Sample Action input -> [cg.get_coins_categories(order = 'market_cap_asc')[:15], 'List coin categories with 10 lowest market caps?', 2]
+                        
+                         Sample user input -> ""List coin categories of top 10 market cap incresaes in the last 24 hours?""
+                         Sample Action input -> [cg.get_coins_categories(order = 'market_cap_change_24h_desc')[:15], 'List coin categories of top 10 market cap incresaes in the last 24 hours?', 2]
+                        
+                         Sample user input -> ""List coin categories of top 10 market cap decreases in the last 24 hours?""
+                         Sample Action input -> [cg.get_coins_categories(order = 'market_cap_change_24h_asc')[:15], 'List coin categories of top 10 market cap decreases in the last 24 hours?', 2]"
+Document search number 1,"Sample user input -> How is time in proof of stake divided in Ethereum?
+                         Sample Action input -> ['How is time in proof of stake divided in Ethereum?', 0]"
+Document search number 2,"Sample user input -> How is time in proof of stake divided in Ethereum?
+                         Sample Action input -> ['How is time in proof of stake divided in Ethereum?', 1]"
+Document search number 3,"Sample user input -> How is time in proof of stake divided in Ethereum?
+                         Sample Action input -> ['How is time in proof of stake divided in Ethereum?', 2]"
