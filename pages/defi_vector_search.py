@@ -199,7 +199,7 @@ def vector_search(query):
                             password = "BigGreenHatsAre@Home612",
                         ),
         additional_headers = {
-            "X-OpenAI-Api-Key": "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"  # Replace with your API key
+            "X-OpenAI-Api-Key": "..."  # Replace with your API key
         }
     )
     print(type(index))
